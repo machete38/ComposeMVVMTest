@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "ComposeMVVMTest"
 include(":app")
 include(":newsapi")
+include(":news-database")

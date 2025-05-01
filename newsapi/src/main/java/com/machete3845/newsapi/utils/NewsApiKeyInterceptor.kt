@@ -3,7 +3,7 @@ package com.machete3845.newsapi.utils
 import okhttp3.Interceptor
 import okhttp3.Response
 
-internal class TimeApiKeyInterceptor(private var apiKey: String): Interceptor {
+internal class NewsApiKeyInterceptor(private var apiKey: String): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(
             chain.request().newBuilder()
