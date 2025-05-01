@@ -23,3 +23,5 @@ rootProject.name = "ComposeMVVMTest"
 include(":app")
 include(":newsapi")
 include(":news-database")
+include(":features:news-main")
+include(":news-data")
