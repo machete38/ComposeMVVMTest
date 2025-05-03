@@ -35,12 +35,12 @@ interface NewsApi {
 
 }
 
-fun newsApi(
+fun NewsApi(
     baseUrl: String,
-    okHttpClient: OkHttpClient? = null,
-    json: Json = Json,
     apiKey: String,
 ): NewsApi{
+    val okHttpClient: OkHttpClient? = null
+    val json: Json = Json
     return retrofit(baseUrl, okHttpClient, json, apiKey).create()
 }
 
