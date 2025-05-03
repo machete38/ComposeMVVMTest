@@ -2,7 +2,6 @@ package com.machete3845.news_main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.machete3845.news_data.ArticlesRepository
 import com.machete3845.news_data.RequestResult
 import com.machete3845.news_main.models.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
