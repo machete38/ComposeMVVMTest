@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
-class GetAllArticlesUseCase @Inject constructor(
+internal class GetAllArticlesUseCase @Inject constructor(
     private val repository: ArticlesRepository){
-    operator fun invoke(): Flow<RequestResult<List<com.machete3845.news_main.models.Article>>>{
+    operator fun invoke(): Flow<RequestResult<List<com.machete3845.news_main.models.ArticleUI>>>{
         return repository.getAll()
             .map { requestResult ->
                 requestResult.map { articles ->
@@ -24,6 +24,6 @@ class GetAllArticlesUseCase @Inject constructor(
 }
 
 
-private fun Article.toUiArticle(): com.machete3845.news_main.models.Article {
+private fun Article.toUiArticle(): com.machete3845.news_main.models.ArticleUI {
     TODO("Not yet implemented")
 }

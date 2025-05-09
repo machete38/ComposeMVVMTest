@@ -3,7 +3,7 @@ package com.machete3845.news_main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.machete3845.news_data.RequestResult
-import com.machete3845.news_main.models.Article
+import com.machete3845.news_main.models.ArticleUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +24,7 @@ internal class NewsMainViewModel @Inject constructor(
 
 }
 
-private fun RequestResult<List<Article>>.toState(): State {
+private fun RequestResult<List<ArticleUI>>.toState(): State {
    return when (this){
        is RequestResult.Error<*> -> State.Error()
        is RequestResult.InProgress<*> -> State.Loading(data)
@@ -32,10 +32,10 @@ private fun RequestResult<List<Article>>.toState(): State {
    }
 }
 
-sealed class State{
+internal sealed class State{
     object None: State()
-    class Loading(val articles: List<Article>? = null): State()
-    class Error(val articles: List<Article>? = null): State()
-    class Success(val articles: List<Article>): State()
+    class Loading(val articles: List<ArticleUI>? = null): State()
+    class Error(val articles: List<ArticleUI>? = null): State()
+    class Success(val articles: List<ArticleUI>): State()
 }
 

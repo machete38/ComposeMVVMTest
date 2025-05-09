@@ -1,6 +1,7 @@
 package com.machete3845.composemvvmtest
 
 import android.content.Context
+import com.machete3845.common.AppDispatchers
 import com.machete3845.news_database.NewsDatabase
 import com.machete3845.newsapi.NewsApi
 import dagger.Module
@@ -28,5 +29,10 @@ object AppModule {
     fun provideNewsDatabase(@ApplicationContext context: Context): NewsDatabase{
         return NewsDatabase(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideAppCoroutineDispatchers(): AppDispatchers = AppDispatchers()
+
 
 }
