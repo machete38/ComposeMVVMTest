@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "NEWS_API_KEY", "\"6e5b68477f874436b3f64663c555c9ad\"")
-        buildConfigField("String", "NEWS_API_BASE_URL", "\"https://newsapi.org/v2\"")
+        buildConfigField("String", "NEWS_API_BASE_URL", "\"https://newsapi.org/v2/\"")
     }
 
     buildTypes {
@@ -59,6 +59,9 @@ dependencies {
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
+
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.okhttp)
 
     implementation(project(":news-data"))
     implementation(project(":newsapi"))

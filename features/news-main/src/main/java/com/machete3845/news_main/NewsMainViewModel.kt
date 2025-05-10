@@ -17,7 +17,7 @@ internal class NewsMainViewModel @Inject constructor(
     getAllArticlesUseCase: Provider<GetAllArticlesUseCase>,
 ) : ViewModel() {
 
-    val state: StateFlow<State> = getAllArticlesUseCase.get().invoke()
+    val state: StateFlow<State> = getAllArticlesUseCase.get().invoke("android")
     .map { it.toState() }
     .stateIn(viewModelScope, SharingStarted.Lazily, State.None)
 

@@ -22,7 +22,7 @@ interface NewsApi {
     /**
      * Api details [here](https://newsapi.org/docs/endpoints/everything)
      */
-    @GET("/everything")
+    @GET("everything")
     suspend fun everything(
         @Query("q") query: String? = null,
         @Query("from") from: Date? = null,
@@ -38,8 +38,8 @@ interface NewsApi {
 fun NewsApi(
     baseUrl: String,
     apiKey: String,
+    okHttpClient: OkHttpClient? = null
 ): NewsApi{
-    val okHttpClient: OkHttpClient? = null
     val json: Json = Json
     return retrofit(baseUrl, okHttpClient, json, apiKey).create()
 }

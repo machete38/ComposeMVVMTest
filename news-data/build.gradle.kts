@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(project(":news-database"))
+    implementation(project(":news-common"))
     implementation(project(":newsapi"))
 
     implementation(libs.jakarta.inject)

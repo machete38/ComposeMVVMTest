@@ -4,6 +4,7 @@ import com.machete3845.news_data.ArticlesRepository
 import com.machete3845.news_data.RequestResult
 import com.machete3845.news_data.map
 import com.machete3845.news_data.models.Article
+import com.machete3845.news_main.models.ArticleUI
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -11,8 +12,8 @@ import kotlinx.coroutines.flow.map
 
 internal class GetAllArticlesUseCase @Inject constructor(
     private val repository: ArticlesRepository){
-    operator fun invoke(): Flow<RequestResult<List<com.machete3845.news_main.models.ArticleUI>>>{
-        return repository.getAll()
+    operator fun invoke(query: String): Flow<RequestResult<List<com.machete3845.news_main.models.ArticleUI>>>{
+        return repository.getAll(query)
             .map { requestResult ->
                 requestResult.map { articles ->
                     articles.map {
@@ -25,5 +26,11 @@ internal class GetAllArticlesUseCase @Inject constructor(
 
 
 private fun Article.toUiArticle(): com.machete3845.news_main.models.ArticleUI {
-    TODO("Not yet implemented")
+    return ArticleUI(
+        id = id,
+        title = title,
+        description = description,
+        imageUrl = urlToImage,
+        url = url
+    )
 }
