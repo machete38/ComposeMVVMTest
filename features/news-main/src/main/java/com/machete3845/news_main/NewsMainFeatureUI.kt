@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,51 +34,41 @@ fun NewsMainScreen(){
 @Composable
 internal fun NewsMainScreen(viewModel: NewsMainViewModel){
     val state by viewModel.state.collectAsState()
-    when (val currentState = state){
-        is State.Success -> Articles(currentState.articles)
-        is State.Error -> ArticlesWithError(currentState.articles)
-        is State.Loading -> ArticlesDuringUpdate(currentState.articles)
-        State.None -> NewsEmpty()
-    }
-}
-
-@Composable
-private fun ArticlesWithError(articles: List<ArticleUI>?) {
-    Box(Modifier.fillMaxSize()
-        .background(MaterialTheme.colorScheme.error),
-        contentAlignment = Alignment.Center,)
+    val currentState = state
+    if (currentState != State.None)
     {
-       Text("Error during update", color = MaterialTheme.colorScheme.onError)
-    }
-    if (articles != null)
-    {
-        Articles(articles)
+        Column {
+            if (currentState is State.Loading) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .size(100.dp),
+                    contentAlignment = Alignment.Center
+                )
+                {
+                    CircularProgressIndicator()
+                }
+            }
+            if (currentState is State.Error) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .size(100.dp)
+                        .background(MaterialTheme.colorScheme.error),
+                    contentAlignment = Alignment.Center,
+                )
+                {
+                    Text("Error during update", color = MaterialTheme.colorScheme.onError)
+                }
+            }
+            if (currentState.articles != null)
+            {
+                Articles(articles = currentState.articles)
+            }
+        }
     }
 }
 
-@Composable
-private fun ArticlesDuringUpdate(articles: List<ArticleUI>?) {
-   Box{
-       Box(Modifier.fillMaxSize(),
-           contentAlignment = Alignment.Center)
-       {
-           CircularProgressIndicator()
-       }
-       if (articles != null)
-       {
-           Articles(articles)
-       }
-   }
-}
-
-@Composable
-private fun NewsEmpty() {
-    Box(modifier = Modifier
-        .fillMaxSize(),
-        contentAlignment = Alignment.Center){
-        Text("No news")
-    }
-}
 
 @Composable
 private fun Articles(articles: List<ArticleUI>) {

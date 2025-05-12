@@ -1,4 +1,4 @@
-package com.machete3845.composemvvmtest.ui.theme
+package com.machete3845.news_uikit
 
 import androidx.compose.ui.graphics.Color
 

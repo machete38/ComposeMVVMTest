@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.machete3845.composemvvmtest.ui.theme.ComposeMVVMTestTheme
 import com.machete3845.news_main.NewsMainScreen
+import com.machete3845.news_uikit.ComposeMVVMTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NewsMainScreen()
+                        NewsMainScreen()
                 }
             }
         }
