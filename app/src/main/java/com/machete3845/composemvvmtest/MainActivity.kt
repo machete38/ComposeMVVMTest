@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.machete3845.news_main.NewsMainScreen
 import com.machete3845.news_uikit.ComposeMVVMTestTheme
+import com.machete3845.news_uikit.ComposeMVVMTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
             ComposeMVVMTestTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = ComposeMVVMTheme.colorScheme.background
                 ) {
                         NewsMainScreen()
                 }
@@ -29,3 +30,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+

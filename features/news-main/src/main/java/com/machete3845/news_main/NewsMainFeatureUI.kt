@@ -4,14 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,6 +23,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.machete3845.news_main.models.ArticleUI
+import com.machete3845.news_uikit.ComposeMVVMTheme
 
 @Composable
 fun NewsMainScreen(){
@@ -39,33 +38,43 @@ internal fun NewsMainScreen(viewModel: NewsMainViewModel){
     {
         Column {
             if (currentState is State.Loading) {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .size(100.dp),
-                    contentAlignment = Alignment.Center
-                )
-                {
-                    CircularProgressIndicator()
-                }
+                ProgressIndicator(currentState)
             }
             if (currentState is State.Error) {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .size(100.dp)
-                        .background(MaterialTheme.colorScheme.error),
-                    contentAlignment = Alignment.Center,
-                )
-                {
-                    Text("Error during update", color = MaterialTheme.colorScheme.onError)
-                }
+                ErrorMessage(currentState)
             }
             if (currentState.articles != null)
             {
                 Articles(articles = currentState.articles)
             }
         }
+    }
+}
+
+@Composable
+private fun ProgressIndicator(state: State.Loading) {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .size(100.dp),
+        contentAlignment = Alignment.Center
+    )
+    {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun ErrorMessage(state: State.Error) {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .size(100.dp)
+            .background(ComposeMVVMTheme.colorScheme.error),
+        contentAlignment = Alignment.Center,
+    )
+    {
+        Text("Error during update", color = ComposeMVVMTheme.colorScheme.onError)
     }
 }
 
@@ -86,9 +95,9 @@ private fun Articles(articles: List<ArticleUI>) {
 @Composable
 internal fun ArticleItem(@PreviewParameter(ArticlesPreviewProvider::class) article: ArticleUI){
     Column(modifier = Modifier.padding(8.dp)){
-        Text(text = article.title ?: "No title", style = MaterialTheme.typography.headlineMedium, maxLines = 1)
+        Text(text = article.title ?: "No title", style = ComposeMVVMTheme.typography.headlineMedium, maxLines = 1)
         Spacer(modifier = Modifier.size(4.dp))
-        Text(text = article.description ?: "No description", style = MaterialTheme.typography.bodyMedium, maxLines = 3)
+        Text(text = article.description ?: "No description", style = ComposeMVVMTheme.typography.bodyMedium, maxLines = 3)
     }
 }
 
