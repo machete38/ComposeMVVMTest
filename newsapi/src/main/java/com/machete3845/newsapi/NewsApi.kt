@@ -22,6 +22,7 @@ interface NewsApi {
     /**
      * Api details [here](https://newsapi.org/docs/endpoints/everything)
      */
+    @Suppress("LongParameterList")
     @GET("everything")
     suspend fun everything(
         @Query("q") query: String? = null,
@@ -31,7 +32,7 @@ interface NewsApi {
         @Query("sortBy") sortBy: SortBy? = null,
         @Query("pageSize") @IntRange(from = 0, to = 100) pageSize: Int = 100,
         @Query("page") @IntRange(from = 1) page: Int = 1,
-        ): Result<ResponseDTO<ArticleDTO>>
+    ): Result<ResponseDTO<ArticleDTO>>
 
 }
 
@@ -39,7 +40,7 @@ fun NewsApi(
     baseUrl: String,
     apiKey: String,
     okHttpClient: OkHttpClient? = null
-): NewsApi{
+): NewsApi {
     val json: Json = Json
     return retrofit(baseUrl, okHttpClient, json, apiKey).create()
 }

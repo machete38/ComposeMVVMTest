@@ -8,28 +8,27 @@ interface MergeStrategy<E> {
     fun merge(right: E, left: E): E
 }
 
-internal class DefaultRequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult<T>>
-{
+internal class DefaultRequestResponseMergeStrategy<T : Any> : MergeStrategy<RequestResult<T>> {
 
     override fun merge(cache: RequestResult<T>, server: RequestResult<T>): RequestResult<T> {
-    return when{
-        cache is InProgress && server is InProgress -> merge(cache, server)
-        cache is Success && server is InProgress -> merge(cache, server)
-        cache is InProgress && server is Success -> merge(cache, server)
-        cache is Success && server is RequestResult.Error -> merge(cache, server)
-        cache is InProgress && server is RequestResult.Error -> merge(cache, server)
-        cache is Success && server is Success -> merge(cache, server)
-        else -> error("Unimplemented branch: server: ${server}, cache: ${cache}")
-    }
+        return when {
+            cache is InProgress && server is InProgress -> merge(cache, server)
+            cache is Success && server is InProgress -> merge(cache, server)
+            cache is InProgress && server is Success -> merge(cache, server)
+            cache is Success && server is RequestResult.Error -> merge(cache, server)
+            cache is InProgress && server is RequestResult.Error -> merge(cache, server)
+            cache is Success && server is Success -> merge(cache, server)
+            else -> error("Unimplemented branch: server: ${server}, cache: ${cache}")
+        }
     }
 
     private fun merge(
         cache: InProgress<T>,
         server: InProgress<T>
-    ): RequestResult<T>{
-        return if (server.data != null){
+    ): RequestResult<T> {
+        return if (server.data != null) {
             InProgress(server.data)
-        } else{
+        } else {
             InProgress(cache.data)
         }
     }
@@ -44,8 +43,8 @@ internal class DefaultRequestResponseMergeStrategy<T: Any>: MergeStrategy<Reques
     private fun merge(
         cache: RequestResult.Success<T>,
         server: RequestResult.InProgress<T>
-    ): RequestResult<T>{
-        return when{
+    ): RequestResult<T> {
+        return when {
             server.data != null -> RequestResult.InProgress(server.data)
             else -> RequestResult.InProgress(cache.data)
         }
@@ -54,14 +53,14 @@ internal class DefaultRequestResponseMergeStrategy<T: Any>: MergeStrategy<Reques
     private fun merge(
         cache: RequestResult.InProgress<T>,
         server: RequestResult.Success<T>
-    ): RequestResult<T>{
+    ): RequestResult<T> {
         return RequestResult.InProgress(server.data)
     }
 
     private fun merge(
         cache: RequestResult.Success<T>,
         server: RequestResult.Error<T>
-    ): RequestResult<T>{
+    ): RequestResult<T> {
         return RequestResult.Error(data = cache.data, error = server.error)
     }
 

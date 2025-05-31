@@ -39,36 +39,35 @@ class ArticlesRepository @Inject constructor(
 
         return cachedAllArticles.combine(remoteArticles, mergeStrategy::merge)
             .flatMapLatest { result ->
-                if (result is RequestResult.Success)
-                {
+                if (result is RequestResult.Success) {
                     database.articlesDao.observeAll()
                         .map { dbos -> dbos.map { it.toArticle() } }
                         .map { RequestResult.Success(it) }
-                }
-                else
-                {
-                  flowOf(result)
+                } else {
+                    flowOf(result)
                 }
             }
     }
 
     private fun getAllFromServer(query: String): Flow<RequestResult<List<Article>>> {
-        val apiRequest = flow { emit(api.everything(query))}
+        val apiRequest = flow { emit(api.everything(query)) }
             .onEach { result ->
-                when{
+                when {
                     result.isSuccess -> saveArticlesToCache(result.getOrThrow().articles)
-                    result.isFailure -> logger.e(LOG_TAG, "Error getting from server: ${result.exceptionOrNull()}")
+                    result.isFailure -> logger.e(
+                        LOG_TAG,
+                        "Error getting from server: ${result.exceptionOrNull()}"
+                    )
                 }
 
             }
             .map { it.toRequestResult() }
-       val start =  flowOf<RequestResult<ResponseDTO<ArticleDTO>>>((RequestResult.InProgress()))
+        val start = flowOf<RequestResult<ResponseDTO<ArticleDTO>>>((RequestResult.InProgress()))
 
-        return merge(apiRequest, start).map {
-                result -> result.map {
-                response ->
-            response.articles.map { it.toArticle() }
-        }
+        return merge(apiRequest, start).map { result ->
+            result.map { response ->
+                response.articles.map { it.toArticle() }
+            }
         }
     }
 
@@ -85,8 +84,7 @@ class ArticlesRepository @Inject constructor(
                 logger.e(LOG_TAG, "Error getting from DB: ${it.message}")
             }
         val start = flowOf<RequestResult<List<ArticleDBO>>>(RequestResult.InProgress())
-        return merge(start, dbRequest).map {
-                result ->
+        return merge(start, dbRequest).map { result ->
             result.map { articlesDbos ->
                 articlesDbos.map { it.toArticle() }
             }

@@ -13,7 +13,7 @@ kotlin {
     }
 }
 
-dependencies{
+dependencies {
     implementation(libs.androidx.annotation)
     implementation(libs.retrofit)
     implementation(libs.kotlinx.coroutines.core)

@@ -11,7 +11,7 @@ internal class Converters {
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): String?{
+    fun dateToTimestamp(date: Date?): String? {
         return date?.time?.let { DateFormat.getDateTimeInstance().format(it) }
     }
 }

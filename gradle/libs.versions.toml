@@ -1,6 +1,7 @@
 [versions]
 agp = "8.9.2"
 annotation = "1.9.1"
+coilCompose = "3.2.0"
 converterKotlinxSerialization = "2.11.0"
 kotlin = "2.0.0"
 coreKtx = "1.16.0"
@@ -26,6 +27,8 @@ okhttp = "4.12.0"
 
 dagger = "2.56"
 jakarta-inject = "2.0.1"
+
+detekt = "1.23.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,31 +57,36 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-adapters = { module = "com.github.skydoves:retrofit-adapters-result", version.ref = "retrofit-adapters"}
+retrofit-adapters = { module = "com.github.skydoves:retrofit-adapters-result", version.ref = "retrofit-adapters" }
 converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "converterKotlinxSerialization" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"}
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger"}
-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger"}
-dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger"}
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger"}
-jakarta-inject = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject"}
+dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+jakarta-inject = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject" }
 
-okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp"}
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger"}
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

@@ -59,11 +59,11 @@ fun ComposeMVVMTestTheme(
     )
 }
 
-object ComposeMVVMTheme{
+object ComposeMVVMTheme {
     val colorScheme: ColorScheme
-    @Composable
-    @ReadOnlyComposable
-    get() = MaterialTheme.colorScheme
+        @Composable
+        @ReadOnlyComposable
+        get() = MaterialTheme.colorScheme
 
     val typography: androidx.compose.material3.Typography
         @Composable

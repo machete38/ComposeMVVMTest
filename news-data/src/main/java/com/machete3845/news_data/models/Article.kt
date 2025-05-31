@@ -12,8 +12,7 @@ data class Article(
     val urlToImage: String?,
     val publishedAt: Date?,
     val content: String?
-)
-{
+) {
     companion object {
         /**
          * Специальный ID для обозначения что ID нету

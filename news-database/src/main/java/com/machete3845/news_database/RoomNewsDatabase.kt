@@ -9,7 +9,7 @@ import com.machete3845.news_database.dao.ArticleDao
 import com.machete3845.news_database.models.ArticleDBO
 import utils.Converters
 
-class NewsDatabase internal constructor(private val database: NewsRoomDatabase){
+class NewsDatabase internal constructor(private val database: NewsRoomDatabase) {
     val articlesDao: ArticleDao
         get() = database.articlesDao()
 }
@@ -22,7 +22,7 @@ internal abstract class NewsRoomDatabase : RoomDatabase() {
     abstract fun articlesDao(): ArticleDao
 }
 
-fun NewsDatabase(applicationContext: Context): NewsDatabase{
+fun NewsDatabase(applicationContext: Context): NewsDatabase {
     val newsRoomDatabase = Room.databaseBuilder(
         checkNotNull(applicationContext),
         NewsRoomDatabase::class.java,

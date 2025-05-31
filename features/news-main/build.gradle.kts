@@ -57,6 +57,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     implementation(project(":news-data"))
     implementation(project(":news-uikit"))
