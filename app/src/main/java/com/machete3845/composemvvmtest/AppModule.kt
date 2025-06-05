@@ -17,22 +17,20 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
-    fun provideNewsApi(okHttpClient: OkHttpClient?): NewsApi {
-        return NewsApi(
+    fun provideNewsApi(okHttpClient: OkHttpClient?): NewsApi =
+        NewsApi(
             baseUrl = BuildConfig.NEWS_API_BASE_URL,
             apiKey = BuildConfig.NEWS_API_KEY,
             okHttpClient = okHttpClient
         )
-    }
 
     @Provides
     @Singleton
-    fun provideNewsDatabase(@ApplicationContext context: Context): NewsDatabase {
-        return NewsDatabase(context)
-    }
+    fun provideNewsDatabase(
+        @ApplicationContext context: Context
+    ): NewsDatabase = NewsDatabase(context)
 
     @Provides
     @Singleton
@@ -40,5 +38,4 @@ object AppModule {
 
     @Provides
     fun provideLogger(): Logger = AndroidLogcatLogger()
-
 }

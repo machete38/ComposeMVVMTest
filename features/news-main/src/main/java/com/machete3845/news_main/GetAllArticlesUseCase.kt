@@ -11,30 +11,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-
-internal class GetAllArticlesUseCase @Inject constructor(
-    private val repository: ArticlesRepository
-) {
-    operator fun invoke(query: String): Flow<RequestResult<List<ArticleUI>>> {
-        return repository.getAll(query)
-            .map { requestResult ->
-                requestResult.map { articles ->
-                    articles.map {
-                        it.toUiArticle()
+internal class GetAllArticlesUseCase
+    @Inject
+    constructor(
+        private val repository: ArticlesRepository
+    ) {
+        operator fun invoke(query: String): Flow<RequestResult<List<ArticleUI>>> =
+            repository
+                .getAll(query)
+                .map { requestResult ->
+                    requestResult.map { articles ->
+                        articles.map {
+                            it.toUiArticle()
+                        }
                     }
-                }
-            }
-            .flowOn(Dispatchers.IO)
+                }.flowOn(Dispatchers.IO)
     }
-}
 
-
-private fun Article.toUiArticle(): ArticleUI {
-    return ArticleUI(
+private fun Article.toUiArticle(): ArticleUI =
+    ArticleUI(
         id = id,
         title = title,
         description = description,
         imageUrl = urlToImage,
         url = url
     )
-}

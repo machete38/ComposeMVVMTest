@@ -45,6 +45,5 @@ enum class Language {
     UD,
 
     @SerialName("zh")
-    ZH,
+    ZH
 }
-

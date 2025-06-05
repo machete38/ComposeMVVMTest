@@ -18,7 +18,6 @@ import retrofit2.http.Query
 import java.util.Date
 
 interface NewsApi {
-
     /**
      * Api details [here](https://newsapi.org/docs/endpoints/everything)
      */
@@ -31,9 +30,8 @@ interface NewsApi {
         @Query("languages") languages: List<@JvmSuppressWildcards Language>? = null,
         @Query("sortBy") sortBy: SortBy? = null,
         @Query("pageSize") @IntRange(from = 0, to = 100) pageSize: Int = 100,
-        @Query("page") @IntRange(from = 1) page: Int = 1,
+        @Query("page") @IntRange(from = 1) page: Int = 1
     ): Result<ResponseDTO<ArticleDTO>>
-
 }
 
 fun NewsApi(
@@ -49,14 +47,16 @@ private fun retrofit(
     baseUrl: String,
     okHttpClient: OkHttpClient?,
     json: Json = Json,
-    apiKey: String,
+    apiKey: String
 ): Retrofit {
-    val modifiedOkHttpClient = (okHttpClient?.newBuilder() ?: OkHttpClient.Builder())
-        .addInterceptor(NewsApiKeyInterceptor(apiKey))
-        .build()
+    val modifiedOkHttpClient =
+        (okHttpClient?.newBuilder() ?: OkHttpClient.Builder())
+            .addInterceptor(NewsApiKeyInterceptor(apiKey))
+            .build()
 
     val jsonConverterFactory = json.asConverterFactory(MediaType.get("application/json"))
-    return Retrofit.Builder()
+    return Retrofit
+        .Builder()
         .baseUrl(baseUrl)
         .run { if (okHttpClient != null) client(okHttpClient) else this }
         .addConverterFactory(jsonConverterFactory)
@@ -64,4 +64,3 @@ private fun retrofit(
         .client(modifiedOkHttpClient)
         .build()
 }
-

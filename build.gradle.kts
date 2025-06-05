@@ -14,16 +14,31 @@ plugins {
 
 allprojects.onEach { project ->
     project.afterEvaluate {
-        if (project.plugins.hasPlugin(libs.plugins.kotlin.android.get().pluginId) || project.plugins.hasPlugin(
-                libs.plugins.jetbrains.kotlin.jvm.get().pluginId
+        if (project.plugins.hasPlugin(
+                libs.plugins.kotlin.android
+                    .get()
+                    .pluginId
+            ) ||
+            project.plugins.hasPlugin(
+                libs.plugins.jetbrains.kotlin.jvm
+                    .get()
+                    .pluginId
             )
         ) {
-            project.plugins.apply(libs.plugins.detekt.get().pluginId)
+            project.plugins.apply(
+                libs.plugins.detekt
+                    .get()
+                    .pluginId
+            )
             project.extensions.configure<DetektExtension> {
                 config.setFrom(rootProject.files("default-detekt-config.yml"))
             }
-            project.dependencies.add("detektPlugins", libs.detekt.formatting.get().toString())
+            project.dependencies.add(
+                "detektPlugins",
+                libs.detekt.formatting
+                    .get()
+                    .toString()
+            )
         }
     }
-
 }

@@ -7,8 +7,8 @@ import com.machete3845.news_database.models.SourceDBO
 import com.machete3845.newsapi.models.ArticleDTO
 import com.machete3845.newsapi.models.SourceDTO
 
-internal fun ArticleDBO.toArticle(): Article {
-    return Article(
+internal fun ArticleDBO.toArticle(): Article =
+    Article(
         id = id,
         source = sourceDBO?.toSource(),
         author = author,
@@ -19,22 +19,15 @@ internal fun ArticleDBO.toArticle(): Article {
         publishedAt = publishedAt,
         content = content
     )
-}
 
-internal fun SourceDBO.toSource(): Source {
-    return Source(id = id, name = name)
-}
+internal fun SourceDBO.toSource(): Source = Source(id = id, name = name)
 
-internal fun SourceDTO.toSource(): Source {
-    return Source(id = id ?: name, name = name)
-}
+internal fun SourceDTO.toSource(): Source = Source(id = id ?: name, name = name)
 
-internal fun SourceDTO.toSourceDbo(): SourceDBO {
-    return SourceDBO(id = id ?: name, name = name)
-}
+internal fun SourceDTO.toSourceDbo(): SourceDBO = SourceDBO(id = id ?: name, name = name)
 
-internal fun ArticleDTO.toArticleDbo(): ArticleDBO {
-    return ArticleDBO(
+internal fun ArticleDTO.toArticleDbo(): ArticleDBO =
+    ArticleDBO(
         sourceDBO = source?.toSourceDbo(),
         author = author,
         title = title,
@@ -44,11 +37,9 @@ internal fun ArticleDTO.toArticleDbo(): ArticleDBO {
         publishedAt = publishedAt,
         content = content
     )
-}
 
-
-internal fun ArticleDTO.toArticle(): Article {
-    return Article(
+internal fun ArticleDTO.toArticle(): Article =
+    Article(
         source = source?.toSource(),
         author = author,
         title = title,
@@ -58,5 +49,3 @@ internal fun ArticleDTO.toArticle(): Article {
         publishedAt = publishedAt,
         content = content
     )
-}
-
